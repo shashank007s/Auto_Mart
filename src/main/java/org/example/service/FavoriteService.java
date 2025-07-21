@@ -38,6 +38,9 @@ public class FavoriteService {
         Vehicle vehicle = vehicleRepository.findById(vehicleId)
                 .orElseThrow(() -> new RuntimeException("Vehicle not found"));
 
-        favoriteRepository.deleteByBuyerAndVehicle(buyer, vehicle);
+        Favorite favorite = favoriteRepository.findByBuyerAndVehicle(buyer, vehicle)
+                .orElseThrow(() -> new RuntimeException("Favorite not found"));
+
+        favoriteRepository.delete(favorite);
     }
 }

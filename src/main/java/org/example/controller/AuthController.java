@@ -65,7 +65,16 @@ public class AuthController {
         );
 
         String jwtToken = jwtUtil.generateToken(request.getEmail());
+        User user = userRepository.findByEmail(request.getEmail()).orElse(null);
 
-        return ResponseEntity.ok(Map.of("token", jwtToken));
+        if (user == null) {
+            return ResponseEntity.status(401).body("User not found.");
+        }
+
+        return ResponseEntity.ok(Map.of(
+                "token", jwtToken,
+                "role", user.getRole().name().replace("ROLE_", "").toLowerCase()
+        ));
+
     }
 }

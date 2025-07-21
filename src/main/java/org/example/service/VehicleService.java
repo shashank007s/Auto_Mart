@@ -45,6 +45,10 @@ public class VehicleService {
     }
 
     public void saveVehicle(Vehicle vehicle) {
+        // Placeholder for future use
+    }
 
+    public List<Vehicle> getAllVehicles() {
+        return vehicleRepository.findAll();
     }
 }
