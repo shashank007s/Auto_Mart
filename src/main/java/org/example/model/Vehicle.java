@@ -8,13 +8,15 @@ import java.time.LocalDateTime;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-
 @Table(name = "vehicles")
 public class Vehicle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "contact_info")
+    private String contactInfo;
 
     private String model;
     private int year;
@@ -52,6 +54,14 @@ public class Vehicle {
 
     public Long getId() {
         return id;
+    }
+
+    public String getContactInfo() {
+        return contactInfo;
+    }
+
+    public void setContactInfo(String contactInfo) {
+        this.contactInfo = contactInfo;
     }
 
     public String getModel() {
@@ -126,6 +136,7 @@ public class Vehicle {
     public String toString() {
         return "Vehicle{" +
                 "id=" + id +
+                ", contactInfo='" + contactInfo + '\'' +
                 ", model='" + model + '\'' +
                 ", year=" + year +
                 ", price=" + price +

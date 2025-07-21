@@ -26,14 +26,12 @@ public class BuyerController {
     @Autowired
     private VehicleService vehicleService;
 
-    // 🔍 Get ALL vehicles from sellers (no filter)
     @GetMapping("/vehicles")
     public ResponseEntity<List<Vehicle>> getAllSellerVehicles() {
         List<Vehicle> vehicles = vehicleService.getAllVehicles();
         return ResponseEntity.ok(vehicles);
     }
 
-    // ✅ Add to favorites
     @PostMapping("/favorites/{vehicleId}")
     public ResponseEntity<String> addFavorite(@PathVariable("vehicleId") Long vehicleId, Authentication auth) {
         User buyer = userService.getByEmail(auth.getName());
@@ -46,7 +44,6 @@ public class BuyerController {
         return ResponseEntity.ok("Vehicle added to favorites.");
     }
 
-    // ❤️ Get buyer's favorite vehicles
     @GetMapping("/favorites")
     public ResponseEntity<List<Favorite>> getFavorites(Authentication auth) {
         User buyer = userService.getByEmail(auth.getName());
@@ -54,7 +51,6 @@ public class BuyerController {
         return ResponseEntity.ok(favorites);
     }
 
-    // ❌ Remove from favorites
     @DeleteMapping("/favorites/{vehicleId}")
     public ResponseEntity<String> removeFavorite(@PathVariable("vehicleId") Long vehicleId, Authentication auth) {
         User buyer = userService.getByEmail(auth.getName());

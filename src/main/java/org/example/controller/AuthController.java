@@ -43,6 +43,7 @@ public class AuthController {
         user.setName(request.getName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setPhoneNumber(request.getPhoneNumber()); // ✅ Add this line
 
         try {
             user.setRole(UserRole.valueOf("ROLE_" + request.getRole().toUpperCase()));
@@ -55,6 +56,7 @@ public class AuthController {
         return ResponseEntity.ok("User registered successfully.");
     }
 
+
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest request) {
         Authentication authentication = authenticationManager.authenticate(
@@ -65,16 +67,7 @@ public class AuthController {
         );
 
         String jwtToken = jwtUtil.generateToken(request.getEmail());
-        User user = userRepository.findByEmail(request.getEmail()).orElse(null);
 
-        if (user == null) {
-            return ResponseEntity.status(401).body("User not found.");
-        }
-
-        return ResponseEntity.ok(Map.of(
-                "token", jwtToken,
-                "role", user.getRole().name().replace("ROLE_", "").toLowerCase()
-        ));
-
+        return ResponseEntity.ok(Map.of("token", jwtToken));
     }
 }

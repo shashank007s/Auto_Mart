@@ -5,7 +5,8 @@ public class RegisterRequest {
     private String email;
     private String name;
     private String password;
-    private String role; // e.g. "buyer"
+    private String role;
+    private String phoneNumber; // ✅ Already added
 
     public String getUsername() {
         return username;
@@ -45,5 +46,13 @@ public class RegisterRequest {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getPhoneNumber() {              // ✅ Added getter
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {  // ✅ Added setter
+        this.phoneNumber = phoneNumber;
     }
 }

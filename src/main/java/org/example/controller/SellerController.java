@@ -23,11 +23,27 @@ public class SellerController {
 
 
     @PostMapping("/vehicles")
-    public ResponseEntity<String> postVehicle(@RequestBody Vehicle vehicle, Authentication auth) {
+    public ResponseEntity<String> postVehicle(@RequestBody Vehicle vehicle,
+                                              @RequestParam("phoneNumber") String phoneNumber,
+                                              Authentication auth) {
         User seller = userService.getByEmail(auth.getName());
+
+        // Update seller's phone number if needed
+        if (seller.getPhoneNumber() == null || !seller.getPhoneNumber().equals(phoneNumber)) {
+            seller.setPhoneNumber(phoneNumber);
+            userService.save(seller); // <- make sure this saves properly
+        }
+
+        vehicle.setContactInfo(phoneNumber); // show buyer the seller's contact
+        vehicle.setSeller(seller);
+
         vehicleService.postVehicle(vehicle, seller);
-        return ResponseEntity.ok("Vehicle posted successfully.");
+
+        return ResponseEntity.ok("Vehicle posted successfully with contact info.");
     }
+
+
+
 
     @GetMapping("/vehicles")
     public ResponseEntity<List<Vehicle>> getSellerVehicles(Authentication auth) {

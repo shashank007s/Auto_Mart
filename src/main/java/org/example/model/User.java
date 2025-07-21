@@ -8,7 +8,6 @@ import org.example.enums.UserRole;
 @Entity
 @Data
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-
 @Table(name = "users")
 public class User {
 
@@ -32,64 +31,49 @@ public class User {
     @Column(nullable = false)
     private UserRole role;
 
+    // ✅ New phoneNumber field
+    @Column(nullable = false)
+    private String phoneNumber;
+
     public User() {}
 
-    public User( String username, String name, String email, String password, UserRole role) {
-//        this.id = id;
+    public User(String username, String name, String email, String password, UserRole role, String phoneNumber) {
         this.username = username;
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.phoneNumber = phoneNumber;
     }
 
-    public Long getId() {
-        return id;
-    }
+    // Getters and Setters
+    public Long getId() { return id; }
 
-    public String getUsername() {
-        return username;
-    }
+    public String getUsername() { return username; }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
-    public String getEmail() {
-        return email;
-    }
+    public String getEmail() { return email; }
 
-    public String getPassword() {
-        return password;
-    }
+    public String getPassword() { return password; }
 
-    public UserRole getRole() {
-        return role;
-    }
+    public UserRole getRole() { return role; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getPhoneNumber() { return phoneNumber; }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    public void setId(Long id) { this.id = id; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setUsername(String username) { this.username = username; }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public void setName(String name) { this.name = name; }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    public void setEmail(String email) { this.email = email; }
 
-    public void setRole(UserRole role) {
-        this.role = role;
-    }
+    public void setPassword(String password) { this.password = password; }
+
+    public void setRole(UserRole role) { this.role = role; }
+
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
     @Override
     public String toString() {
@@ -98,6 +82,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", role=" + role +
                 '}';
     }

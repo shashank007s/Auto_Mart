@@ -34,4 +34,9 @@ public class UserService {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
+
+    // ✅ Add this method
+    public User save(User user) {
+        return userRepository.save(user);
+    }
 }
